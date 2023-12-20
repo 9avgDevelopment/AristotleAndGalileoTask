@@ -2,12 +2,17 @@
 #include "./ui_mainwindow.h"
 #include <QMessageBox>
 #include "DefaultParams.h"
+#include <QtMath>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    FrameLessWindow = new FrameLessMode();
+
+    connect(FrameLessWindow, &FrameLessMode::FrameLessReturn, this, &MainWindow::show);
 }
 
 MainWindow::~MainWindow()
@@ -40,4 +45,18 @@ void MainWindow::on_StartButton_clicked()
 {
 
 }
+
+
+void MainWindow::on_StopButton_clicked()
+{
+
+}
+
+
+void MainWindow::on_FramelessButton_clicked()
+{
+    FrameLessWindow->show();
+    this->close();
+}
+
 
