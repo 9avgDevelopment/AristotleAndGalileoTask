@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1132</width>
-    <height>461</height>
+    <width>1198</width>
+    <height>583</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -184,30 +184,34 @@
          </item>
          <item>
           <layout class="QGridLayout" name="gridLayout_2">
-           <item row="1" column="0">
-            <widget class="QPushButton" name="StartButton">
+           <item row="3" column="1">
+            <widget class="QLabel" name="label_8">
              <property name="text">
-              <string>Start</string>
+              <string>Макс высота, м</string>
              </property>
             </widget>
            </item>
-           <item row="4" column="0">
-            <widget class="QLineEdit" name="yBase"/>
+           <item row="5" column="1">
+            <widget class="QLabel" name="label_10">
+             <property name="text">
+              <string>База времени, с</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QLabel" name="label_9">
+             <property name="text">
+              <string>Шаг по времяни, с </string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QLineEdit" name="tBase"/>
            </item>
            <item row="0" column="0">
             <widget class="QPushButton" name="InitButton">
              <property name="text">
               <string>Init</string>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="0">
-            <widget class="QLineEdit" name="tBase"/>
-           </item>
-           <item row="3" column="0">
-            <widget class="QPushButton" name="FramelessButton">
-             <property name="text">
-              <string>Frameless</string>
              </property>
             </widget>
            </item>
@@ -218,29 +222,18 @@
              </property>
             </widget>
            </item>
-           <item row="5" column="0">
+           <item row="4" column="0">
             <widget class="QLineEdit" name="Deltat"/>
            </item>
-           <item row="4" column="1">
-            <widget class="QLabel" name="label_8">
+           <item row="1" column="0">
+            <widget class="QPushButton" name="StartButton">
              <property name="text">
-              <string>Макс высота, м</string>
+              <string>Start</string>
              </property>
             </widget>
            </item>
-           <item row="5" column="1">
-            <widget class="QLabel" name="label_9">
-             <property name="text">
-              <string>Шаг по времяни, с </string>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="1">
-            <widget class="QLabel" name="label_10">
-             <property name="text">
-              <string>База времени, с</string>
-             </property>
-            </widget>
+           <item row="3" column="0">
+            <widget class="QLineEdit" name="yBase"/>
            </item>
           </layout>
          </item>
@@ -256,7 +249,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1132</width>
+     <width>1198</width>
      <height>22</height>
     </rect>
    </property>
