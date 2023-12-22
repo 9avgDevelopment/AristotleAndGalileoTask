@@ -1,8 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "qcustomplot.h"
 #include <QMainWindow>
 #include <QTimer>
+#include <QPainter>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -30,9 +32,8 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
-    QVector<double> l_V1, l_V2, l_Y1, l_Y2, l_a1sz, l_t1, l_t2, l_F1s, l_F2s, l_F1m, l_F2m, l_F1, l_F2;
-
     QTimer *timer;
+    QCPItemEllipse *ellipse1, *ellipse2;
 
 };
 #endif // MAINWINDOW_H

@@ -1,8 +1,6 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
-#include <QMessageBox>
 #include "DefaultParams.h"
-#include <QtMath>
 #include <QPainter>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -39,15 +37,9 @@ void MainWindow::on_InitButton_clicked()
         V2 = V02;
         t1 = 0;
         t2 = 0;
-        l_t1.clear();
-        l_V1.clear();
-        l_Y1.clear();
-        l_F1m.clear();
-        l_F1s.clear();
-        l_F1.clear();
         ui->graph1->clearGraphs();
         ui->graph1->yAxis->setRange(0, yBase);
-        ui->graph1->xAxis->setRange(0, 3);
+        ui->graph1->xAxis->setRange(0, yBase);
         ui->graph1->xAxis->setTicks(false);
         ui->graph1->replot();
 
@@ -75,22 +67,19 @@ void MainWindow::on_StartButton_clicked()
         ui->graph1->clearGraphs();
         ui->graph2->clearGraphs();
         ui->graph3->clearGraphs();
+        ui->graph1->clearItems();
+        ellipse1 = new QCPItemEllipse(ui->graph1);
+        ellipse2 = new QCPItemEllipse(ui->graph1);
         Stop1=0;
         Stop2=0;
-        timer->start(12);
-
         Y1 = Y01;
-        V1 = V01;
+        V1 = -V01;
         Y2 = Y02;
-        V2 = V02;
+        V2 = -V02;
         t1 = 0;
         t2 = 0;
-        l_V1.clear();
-        l_V2.clear();
-        l_Y1.clear();
-        l_Y2.clear();
-        l_t1.clear();
-        l_t2.clear();
+
+        timer->start(12);
     }
 }
 
@@ -107,7 +96,7 @@ void MainWindow::on_StopButton_clicked()
 
 void MainWindow::TimerSlot()
 {
-    if(!Stop1 & !Stop2){
+    if(!Stop1 || !Stop2){
         if((Y1 > 0) & (!Stop1)){
             t1 += Deltat;
             F1s = -0.5 * Cy1 * ((Pi * pow(D1,2))/4) * abs(V1) * V1;
@@ -116,12 +105,6 @@ void MainWindow::TimerSlot()
             Y1 += V1 * Deltat;
             F1m = -g * m1;
             F1 = F1m + F1s;
-            l_t1.push_back(t1);
-            l_V1.push_back(V1);
-            l_Y1.push_back(Y1);
-            l_F1m.push_back(F1m);
-            l_F1s.push_back(F1s);
-            l_F1.push_back(F1);
         }
         else{
             Stop1=1;
@@ -135,12 +118,6 @@ void MainWindow::TimerSlot()
             Y2 += V2 * Deltat;
             F2m = -g * m2;
             F2 = F2m + F2s;
-            l_t2.push_back(t2);
-            l_V2.push_back(V2);
-            l_Y2.push_back(Y2);
-            l_F2m.push_back(F2m);
-            l_F2s.push_back(F2s);
-            l_F2.push_back(F2);
         }
         else{
             Stop2=1;
@@ -152,32 +129,37 @@ void MainWindow::TimerSlot()
         timer->stop();
     }
 
-    ui->graph1->setAutoAddPlottableToLegend(1);
-    ui->graph1->addGraph();
-    ui->graph1->graph(0)->addData(1, 5);
+    ellipse1->setAntialiased(true);
+    ellipse1->setBrush(Qt::black);
+    ellipse1->bottomRight->setCoords(yBase/4, Y1);
+    ellipse1->topLeft->setCoords(yBase/4+(yBase/11), Y1+(yBase/11));
+    ellipse2->setAntialiased(true);
+    ellipse2->setBrush(Qt::black);
+    ellipse2->bottomRight->setCoords((yBase/4)*3, Y2);
+    ellipse2->topLeft->setCoords((yBase/4)*3-(yBase/11), Y2+(yBase/11));
     ui->graph1->replot();
 
     ui->graph2->addGraph();
     ui->graph2->graph(0)->setPen(QPen(Qt::blue));
-    ui->graph2->graph(0)->addData(l_t1, l_V1);
+    ui->graph2->graph(0)->addData(t1, V1);
 
     ui->graph2->addGraph();
     ui->graph2->graph(1)->setPen(QPen(Qt::red));
-    ui->graph2->graph(1)->addData(l_t2, l_V2);
+    ui->graph2->graph(1)->addData(t2, V2);
 
     ui->graph2->replot();
 
     ui->graph3->addGraph();
     ui->graph3->graph(0)->setPen(QPen(Qt::black));
-    ui->graph3->graph(0)->addData(l_t1, l_F1s);
+    ui->graph3->graph(0)->addData(t1, F1s);
 
     ui->graph3->addGraph();
     ui->graph3->graph(1)->setPen(QPen(Qt::blue));
-    ui->graph3->graph(1)->addData(l_t1, l_F1m);
+    ui->graph3->graph(1)->addData(t1, F1m);
 
     ui->graph3->addGraph();
     ui->graph3->graph(2)->setPen(QPen(Qt::red));
-    ui->graph3->graph(2)->addData(l_t1, l_F1);
+    ui->graph3->graph(2)->addData(t1, F1);
 
     ui->graph3->replot();
 
