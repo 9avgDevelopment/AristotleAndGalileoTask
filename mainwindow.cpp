@@ -37,7 +37,7 @@ void MainWindow::on_InitButton_clicked()
         V2 = V02;
         t1 = 0;
         t2 = 0;
-        ui->graph1->clearGraphs();
+
         ui->graph1->yAxis->setRange(0, yBase);
         ui->graph1->xAxis->setRange(0, yBase);
         ui->graph1->xAxis->setTicks(false);
@@ -70,6 +70,10 @@ void MainWindow::on_StartButton_clicked()
         ui->graph1->clearItems();
         ellipse1 = new QCPItemEllipse(ui->graph1);
         ellipse2 = new QCPItemEllipse(ui->graph1);
+        ui->graph2->addGraph();
+        ui->graph2->addGraph();
+        ui->graph3->addGraph();
+        ui->graph3->addGraph();
         Stop1=0;
         Stop2=0;
         Y1 = Y01;
@@ -86,7 +90,7 @@ void MainWindow::on_StartButton_clicked()
 
 void MainWindow::on_StopButton_clicked()
 {
-    if(!Stop1 & !Stop2){
+    if(!Stop1 || !Stop2){
         Stop1 = 1;
         Stop2 = 1;
         timer->stop();
@@ -139,28 +143,23 @@ void MainWindow::TimerSlot()
     ellipse2->topLeft->setCoords((yBase/4)*3-(yBase/11), Y2+(yBase/11));
     ui->graph1->replot();
 
-    ui->graph2->addGraph();
     ui->graph2->graph(0)->setPen(QPen(Qt::blue));
     ui->graph2->graph(0)->addData(t1, V1);
 
-    ui->graph2->addGraph();
     ui->graph2->graph(1)->setPen(QPen(Qt::red));
     ui->graph2->graph(1)->addData(t2, V2);
 
     ui->graph2->replot();
 
-    ui->graph3->addGraph();
     ui->graph3->graph(0)->setPen(QPen(Qt::black));
     ui->graph3->graph(0)->addData(t1, F1s);
 
-    ui->graph3->addGraph();
     ui->graph3->graph(1)->setPen(QPen(Qt::blue));
     ui->graph3->graph(1)->addData(t1, F1m);
 
     ui->graph3->addGraph();
     ui->graph3->graph(2)->setPen(QPen(Qt::red));
     ui->graph3->graph(2)->addData(t1, F1);
-
     ui->graph3->replot();
 
     ui->V1->setText(QString::number(abs(V1)));
