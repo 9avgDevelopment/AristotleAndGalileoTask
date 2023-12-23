@@ -8,6 +8,17 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    ui->graph2->addGraph();
+    ui->graph2->graph(0)->setPen(QPen(Qt::blue));
+    ui->graph2->addGraph();
+    ui->graph2->graph(1)->setPen(QPen(Qt::red));
+    ui->graph3->addGraph();
+    ui->graph3->graph(0)->setPen(QPen(Qt::black));
+    ui->graph3->addGraph();
+    ui->graph3->graph(1)->setPen(QPen(Qt::blue));
+    ui->graph3->addGraph();
+    ui->graph3->graph(2)->setPen(QPen(Qt::red));
 }
 
 MainWindow::~MainWindow()
@@ -38,19 +49,29 @@ void MainWindow::on_InitButton_clicked()
         t1 = 0;
         t2 = 0;
 
+        l_t1.clear();
+        l_t2.clear();
+        l_V1.clear();
+        l_V2.clear();
+        l_F1s.clear();
+        l_F1m.clear();
+        l_F1.clear();
         ui->graph1->yAxis->setRange(0, yBase);
         ui->graph1->xAxis->setRange(0, yBase);
         ui->graph1->xAxis->setTicks(false);
         ui->graph1->replot();
 
-        ui->graph2->clearGraphs();
         ui->graph2->yAxis->setRange(-round(pow((fmax(m1, m2) * g * fmax(Y01, Y02) * 2 / fmax(m1, m2)), 0.5))*2, round(pow((fmax(m1, m2) * g * fmax(Y01, Y02) * 2 / fmax(m1, m2)), 0.5))*2);
         ui->graph2->xAxis->setRange(0, tBase);
+        ui->graph2->graph(0)->setData(l_t1, l_V1);
+        ui->graph2->graph(1)->setData(l_t2, l_V2);
         ui->graph2->replot();
 
-        ui->graph3->clearGraphs();
-        ui->graph3->yAxis->setRange(-(m1 * g * 1.4), (m1 * g * 1.4));
+        ui->graph3->yAxis->setRange(-(m1 * g * 2.8), (m1 * g * 2.8));
         ui->graph3->xAxis->setRange(0, tBase);
+        ui->graph3->graph(0)->setData(l_t1, l_F1);
+        ui->graph3->graph(1)->setData(l_t1, l_F1m);
+        ui->graph3->graph(2)->setData(l_t1, l_F1s);
         ui->graph3->replot();
     }
 
@@ -64,16 +85,26 @@ void MainWindow::on_StartButton_clicked()
     if(Stop1 & Stop2){
         timer = new QTimer();
         connect(timer, SIGNAL(timeout()), this, SLOT(TimerSlot()));
-        ui->graph1->clearGraphs();
-        ui->graph2->clearGraphs();
-        ui->graph3->clearGraphs();
+        l_t1.clear();
+        l_t2.clear();
+        l_V1.clear();
+        l_V2.clear();
+        l_F1s.clear();
+        l_F1m.clear();
+        l_F1.clear();
         ui->graph1->clearItems();
+        ui->graph1->replot();
         ellipse1 = new QCPItemEllipse(ui->graph1);
         ellipse2 = new QCPItemEllipse(ui->graph1);
-        ui->graph2->addGraph();
-        ui->graph2->addGraph();
-        ui->graph3->addGraph();
-        ui->graph3->addGraph();
+        ui->graph2->graph(0)->setData(l_t1, l_V1);
+        ui->graph2->graph(1)->setData(l_t2, l_V2);
+        ui->graph2->graph(0)->setData(l_t1, l_V1);
+        ui->graph2->graph(1)->setData(l_t2, l_V2);
+        ui->graph2->replot();
+        ui->graph3->graph(0)->setData(l_t1, l_F1s);
+        ui->graph3->graph(1)->setData(l_t1, l_F1m);
+        ui->graph3->graph(2)->setData(l_t1, l_F1);
+        ui->graph3->replot();
         Stop1=0;
         Stop2=0;
         Y1 = Y01;
@@ -107,8 +138,13 @@ void MainWindow::TimerSlot()
             a1 = -g + (F1s/m1);
             V1 += a1 * Deltat;
             Y1 += V1 * Deltat;
-            F1m = -g * m1;
+            F1m = g * m1;
             F1 = F1m + F1s;
+            l_t1.push_back(t1);
+            l_V1.push_back(V1);
+            l_F1.push_back(-F1);
+            l_F1s.push_back(F1s);
+            l_F1m.push_back(F1m);
         }
         else{
             Stop1=1;
@@ -120,8 +156,8 @@ void MainWindow::TimerSlot()
             a2 = -g + (F2s/m2);
             V2 += a2 * Deltat;
             Y2 += V2 * Deltat;
-            F2m = -g * m2;
-            F2 = F2m + F2s;
+            l_t2.push_back(t2);
+            l_V2.push_back(V2);
         }
         else{
             Stop2=1;
@@ -143,23 +179,17 @@ void MainWindow::TimerSlot()
     ellipse2->topLeft->setCoords((yBase/4)*3-(yBase/11), Y2+(yBase/11));
     ui->graph1->replot();
 
-    ui->graph2->graph(0)->setPen(QPen(Qt::blue));
-    ui->graph2->graph(0)->addData(t1, V1);
+    ui->graph2->graph(0)->setData(l_t1, l_V1);
 
-    ui->graph2->graph(1)->setPen(QPen(Qt::red));
-    ui->graph2->graph(1)->addData(t2, V2);
+    ui->graph2->graph(1)->setData(l_t2, l_V2);
 
     ui->graph2->replot();
 
-    ui->graph3->graph(0)->setPen(QPen(Qt::black));
-    ui->graph3->graph(0)->addData(t1, F1s);
+    ui->graph3->graph(0)->setData(l_t1, l_F1s);
 
-    ui->graph3->graph(1)->setPen(QPen(Qt::blue));
-    ui->graph3->graph(1)->addData(t1, F1m);
+    ui->graph3->graph(1)->setData(l_t1, l_F1m);
 
-    ui->graph3->addGraph();
-    ui->graph3->graph(2)->setPen(QPen(Qt::red));
-    ui->graph3->graph(2)->addData(t1, F1);
+    ui->graph3->graph(2)->setData(l_t1, l_F1);
     ui->graph3->replot();
 
     ui->V1->setText(QString::number(abs(V1)));

@@ -195,14 +195,14 @@
            <item row="0" column="0">
             <widget class="QPushButton" name="InitButton">
              <property name="text">
-              <string>Init</string>
+              <string>Инициализировать</string>
              </property>
             </widget>
            </item>
            <item row="2" column="0">
             <widget class="QPushButton" name="StopButton">
              <property name="text">
-              <string>Stop</string>
+              <string>Стоп</string>
              </property>
             </widget>
            </item>
@@ -212,7 +212,7 @@
            <item row="1" column="0">
             <widget class="QPushButton" name="StartButton">
              <property name="text">
-              <string>Start</string>
+              <string>Старт</string>
              </property>
             </widget>
            </item>
