@@ -138,11 +138,11 @@ void MainWindow::TimerSlot()
             a1 = -g + (F1s/m1);
             V1 += a1 * Deltat;
             Y1 += V1 * Deltat;
-            F1m = g * m1;
+            F1m = -g * m1;
             F1 = F1m + F1s;
             l_t1.push_back(t1);
             l_V1.push_back(V1);
-            l_F1.push_back(-F1);
+            l_F1.push_back(F1);
             l_F1s.push_back(F1s);
             l_F1m.push_back(F1m);
         }
@@ -185,17 +185,19 @@ void MainWindow::TimerSlot()
 
     ui->graph2->replot();
 
-    ui->graph3->graph(0)->setData(l_t1, l_F1s);
+    ui->graph3->graph(0)->setData(l_t1, l_F1);
 
     ui->graph3->graph(1)->setData(l_t1, l_F1m);
 
-    ui->graph3->graph(2)->setData(l_t1, l_F1);
+    ui->graph3->graph(2)->setData(l_t1, l_F1s);
     ui->graph3->replot();
 
     ui->V1->setText(QString::number(abs(V1)));
     ui->V2->setText(QString::number(abs(V2)));
     ui->t1->setText(QString::number(abs(t1)));
     ui->t2->setText(QString::number(abs(t2)));
+    ui->a1->setText(QString::number(abs(a1)));
+    ui->a2->setText(QString::number(abs(a2)));
 }
 
 

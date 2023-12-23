@@ -37,73 +37,11 @@
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
           <layout class="QGridLayout" name="gridLayout">
-           <item row="3" column="2">
-            <widget class="QLabel" name="label_4">
-             <property name="text">
-              <string>Масса тела, кг</string>
-             </property>
-            </widget>
+           <item row="2" column="0">
+            <widget class="QLineEdit" name="Cy1"/>
            </item>
-           <item row="5" column="2">
-            <widget class="QLabel" name="label_6">
-             <property name="text">
-              <string>Скорость , м/с</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QLineEdit" name="Cy2">
-             <property name="clearButtonEnabled">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="QLabel" name="label">
-             <property name="text">
-              <string>Начальная высота, м</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLineEdit" name="Y01"/>
-           </item>
-           <item row="5" column="1">
-            <widget class="QLineEdit" name="V2">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <widget class="QLineEdit" name="V1">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLineEdit" name="m1"/>
-           </item>
-           <item row="1" column="2">
-            <widget class="QLabel" name="label_2">
-             <property name="text">
-              <string>Начальная скорость, м/с </string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QLineEdit" name="m2"/>
-           </item>
-           <item row="4" column="0">
-            <widget class="QLineEdit" name="D1"/>
-           </item>
-           <item row="4" column="2">
-            <widget class="QLabel" name="label_5">
-             <property name="text">
-              <string>Диаметр шара, м</string>
-             </property>
-            </widget>
+           <item row="4" column="1">
+            <widget class="QLineEdit" name="D2"/>
            </item>
            <item row="6" column="0">
             <widget class="QLineEdit" name="t1">
@@ -112,23 +50,26 @@
              </property>
             </widget>
            </item>
-           <item row="2" column="0">
-            <widget class="QLineEdit" name="Cy1"/>
+           <item row="0" column="0">
+            <widget class="QLineEdit" name="Y01"/>
+           </item>
+           <item row="5" column="2">
+            <widget class="QLabel" name="label_6">
+             <property name="text">
+              <string>Скорость , м/с</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLineEdit" name="m2"/>
            </item>
            <item row="1" column="1">
             <widget class="QLineEdit" name="V02"/>
            </item>
-           <item row="2" column="2">
-            <widget class="QLabel" name="label_3">
+           <item row="0" column="2">
+            <widget class="QLabel" name="label">
              <property name="text">
-              <string>Су</string>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="2">
-            <widget class="QLabel" name="label_7">
-             <property name="text">
-              <string>Время полета, с</string>
+              <string>Начальная высота, м</string>
              </property>
             </widget>
            </item>
@@ -139,14 +80,94 @@
              </property>
             </widget>
            </item>
-           <item row="4" column="1">
-            <widget class="QLineEdit" name="D2"/>
+           <item row="2" column="1">
+            <widget class="QLineEdit" name="Cy2">
+             <property name="clearButtonEnabled">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="2">
+            <widget class="QLabel" name="label_5">
+             <property name="text">
+              <string>Диаметр шара, м</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <widget class="QLineEdit" name="V2">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="Y02"/>
            </item>
            <item row="1" column="0">
             <widget class="QLineEdit" name="V01"/>
            </item>
-           <item row="0" column="1">
-            <widget class="QLineEdit" name="Y02"/>
+           <item row="5" column="0">
+            <widget class="QLineEdit" name="V1">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string>Су</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLineEdit" name="D1"/>
+           </item>
+           <item row="3" column="2">
+            <widget class="QLabel" name="label_4">
+             <property name="text">
+              <string>Масса тела, кг</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>Начальная скорость, м/с </string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLineEdit" name="m1"/>
+           </item>
+           <item row="6" column="2">
+            <widget class="QLabel" name="label_7">
+             <property name="text">
+              <string>Время полета, с</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0">
+            <widget class="QLineEdit" name="a1">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="1">
+            <widget class="QLineEdit" name="a2">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="2">
+            <widget class="QLabel" name="label_12">
+             <property name="text">
+              <string>Ускорение, м/c2</string>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
